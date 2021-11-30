@@ -22,7 +22,7 @@
           </div>
           <!-- 社交信息 -->
           <div class="top-social">
-            <div v-for="item in socials" :key="item.id" :title="item.title"><a :href="item.href" target="_blank"
+            <div v-for="item in socials" :key="item._id" :title="item.title"><a :href="item.href" target="_blank"
                                                                                :style="{'color':item.color}"><i
                 class="iconfont" :class="item.icon"></i></a></div>
           </div>
@@ -38,6 +38,7 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 import {useStore} from '@/store'
+import {socialsList,siteInfo} from '@/api/types'
 
 const store = useStore()
 
@@ -49,8 +50,17 @@ const props = defineProps({
   }
 })
 
-const websiteInfo = ref({})
-const socials = ref([])
+const websiteInfo = ref<siteInfo>({
+  id: 0,
+  desc: '',
+  notice: '',
+  domain: '',
+  name: '',
+  slogan: '',
+  avatar: '',
+  _id: '',
+})
+const socials = ref<socialsList>([])
 
 function getSocial() {
   socials.value=store.getters.socials
@@ -61,13 +71,14 @@ function getWebSiteInfo() {
 }
 
 
-let srcList=ref([])
+let srcList=ref<string[]>([])
 srcList.value=[getImg('avatar')]
 
-function getImg(name){
-  const path='/src/assets/'+name+'.jpg'
-  const module=import.meta.globEager('/src/assets/*')
-  return module[path].default
+function getImg(name:string){
+  return new URL(`/src/assets/${name}.jpg`, import.meta.url).href
+  /*const path='/src/assets/'+name+'.jpg'
+  const module=import.meta.globEager('/src/assets/!*')
+  return module[path].default*/
 }
 
 getSocial()

@@ -68,45 +68,59 @@
 </template>
 
 <script lang="ts" setup>
-import {ref,onMounted,nextTick,watch} from 'vue'
+import {ref,reactive,onMounted,nextTick,watch} from 'vue'
 import {useRoute} from 'vue-router'
 import moment from 'moment'
 import Banner from '@/components/banner.vue'
 import sectionTitle from '@/components/section-title.vue'
 // import comment from '@/components/comment.vue'
 import menuTree from '@/components/menu-tree.vue'
-import {fetchComment,fetchArticle,articleView} from '../api'
+import {fetchArticle,articleView} from '../api'
+import {articleData} from '@/api/types'
+
+
+interface HEle{
+  h:number;
+  title:string;
+  id:string;
+  offsetTop:number;
+  child:HEle[]
+}
 
 const route=useRoute()
 
 const showDonate = ref(false)
 const comments = ref([])
-const article = ref({})
-const menus = ref([])
+let article = reactive<articleData>({
+  content: '',
+  createTime: 0,
+  updateTime: 0,
+  title: '',
+  author: '',
+  sort: 0,
+  viewNum: 0,
+  banner: [],
+  _id: '',
+})
+const menus = ref<HEle[]>([])
 
-/*function getComment() {
-  fetchComment().then(res => {
-    comments.value = res.data || []
-  }).catch(err => {
-    console.log(err)
-  })
-}*/
+const id=route.params.id
 
 function updateView(){
-  articleView(route.params).catch(err => {
+  articleView({id}).catch(err => {
     console.log(err)
   })
 }
 
 function getArticle() {
-  fetchArticle(route.params).then(res => {
-    article.value = res.result || {}
+  fetchArticle({id}).then(res => {
+    article = res.result
   }).catch(err => {
     console.log(err)
   })
 }
 
-function fetchH(arr, left, right) {
+function fetchH(arr:HEle[], left:number, right:number|undefined) {
   if (right) {
     return arr.filter(item => item.offsetTop > left && item.offsetTop < right)
   } else {
@@ -117,22 +131,25 @@ function fetchH(arr, left, right) {
 // 生成目录
 let headCount=0
 function createMenus() {
-  let arr = []
+  let arr:HEle[] = []
   for (let i = 6; i > 0; i--) {
-    let temp = []
-    let e = document.querySelector(".entry-content").querySelectorAll(`h${i}`)
-    for (let j = 0; j < e.length; j++) {
-      e[j].setAttribute('id', 'heading-'+headCount)
-      let child = fetchH(arr, e[j].offsetTop, (j + 1 === e.length) ? undefined : e[j + 1].offsetTop)
-      temp.push({
-        h: i,
-        title: e[j].innerText,
-        id: 'heading-'+headCount,
-        offsetTop: e[j].offsetTop,
-        child
-      })
-      headCount++
+    let temp:HEle[] = []
+    let e = document.querySelector(".entry-content")!.querySelectorAll(`h${i}`) as NodeListOf<HTMLElement>
+    if(e){
+      for (let j = 0; j < e.length; j++) {
+        e[j].setAttribute('id', 'heading-'+headCount)
+        let child = fetchH(arr, e[j].offsetTop, (j + 1 === e.length) ? undefined : e[j + 1].offsetTop)
+        temp.push({
+          h: i,
+          title: e[j].innerText,
+          id: 'heading-'+headCount,
+          offsetTop: e[j].offsetTop,
+          child
+        })
+        headCount++
+      }
     }
+
     if (temp.length) {
       arr = temp
     }
@@ -144,7 +161,7 @@ getArticle()
 updateView()
 
 //获取v-html里的元素
-watch(()=>article.value.content,(v)=>{
+watch(()=>article.content,(v)=>{
   nextTick(()=>{
     createMenus()
   })

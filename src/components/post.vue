@@ -3,7 +3,7 @@
     <div class="post-entry">
       <div class="feature">
         <router-link :to="`/article/${post._id}`">
-          <img :src="post.banner"/>
+          <img :src="post.banner[0]"/>
         </router-link>
       </div>
       <h1 class="entry-title">
@@ -39,15 +39,30 @@
 </template>
 
 <script lang="ts" setup>
+import {PropType} from 'vue'
 import moment from 'moment'
+import {articleData} from '@/api/types'
 
-defineProps({
+const props=defineProps({
   post: {
-    type: Object
+    type: Object as PropType<articleData>,
+    default:()=>{
+      return {
+        content: '',
+        createTime: 0,
+        updateTime: 0,
+        title: '',
+        author: '',
+        sort: 0,
+        viewNum: 0,
+        banner: [0],
+        _id: '',
+      }
+    }
   }
 })
 
-function stripTag(req) {
+function stripTag(req:string) {
   return req.replace(/<\/?.+?>/g, "").replace(/ /g, "")
 }
 </script>

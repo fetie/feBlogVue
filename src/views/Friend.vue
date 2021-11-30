@@ -25,7 +25,7 @@
       <!----->
       <hr/>
       <div class="friend-list animate">
-        <div class="friend-item" v-for="item in list" :key="item.id"><a target="_blank" :href="item.path">
+        <div class="friend-item" v-for="item in list" :key="item._id"><a target="_blank" :href="item.path">
           <div class="site-name">{{ item.siteName }}</div>
           <div class="site-detail">{{ item.desc }}</div>
         </a></div>
@@ -40,11 +40,12 @@ import {useStore} from '@/store'
 import sectionTitle from '@/components/section-title.vue'
 import Quote from '@/components/quote.vue'
 import {fetchFriend} from '../api'
+import {friendsList} from '@/api/types/index'
 
 const store = useStore()
 
 const websiteInfo = ref({})
-const list = ref([])
+const list = ref<friendsList>([])
 
 function getFriend() {
   fetchFriend().then(res => {

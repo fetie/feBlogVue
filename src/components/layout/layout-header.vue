@@ -38,13 +38,13 @@
 import {ref, onMounted, onBeforeUnmount} from 'vue'
 import HeaderSearch from '@/components/header-search.vue'
 import {fetchCategory} from '@/api'
+import {categoriesList} from '@/api/types'
 
 let lastScrollTop = ref(0)
 let fixed = ref(false)
 let hidden = ref(false)
-let category = ref([])
+let category = ref<categoriesList>([])
 let mobileShow = ref(false)
-
 
 function watchScroll() {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop

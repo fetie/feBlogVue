@@ -1,30 +1,23 @@
-import request from '@/utils/request'
+import request from '../utils/request'
+import {articleList,articleData,categoriesList,friendsList,messageList,siteInfo,socialsList} from './types/index'
 
-export function fetchList(params) {
-    return request({
+export function fetchList(params:{page:number,title:string|string[]}) {
+    return request<articleList>({
         url: '/articles/find',
         method: 'get',
-        params: params
+        params
     })
 }
 
-export function fetchArticle(params) {
-    return request({
+export function fetchArticle(params:{id:number|string|string[]}) {
+    return request<articleData>({
         url: `/articles/find/${params.id}`,
         method: 'get',
     })
 }
 
-export function fetchFocus() {
-    return request({
-        url: '/focus/list',
-        method: 'get',
-        params: {}
-    })
-}
-
 export function fetchCategory() {
-    return request({
+    return request<categoriesList>({
         url: '/categories/find',
         method: 'get',
         params: {}
@@ -32,7 +25,7 @@ export function fetchCategory() {
 }
 
 export function fetchFriend() {
-    return request({
+    return request<friendsList>({
         url: '/friends',
         method: 'get',
         params: {}
@@ -40,7 +33,7 @@ export function fetchFriend() {
 }
 
 export function fetchSocial() {
-    return request({
+    return request<socialsList>({
         url: '/socials/',
         method: 'get',
         params: {}
@@ -48,31 +41,23 @@ export function fetchSocial() {
 }
 
 export function fetchSiteInfo() {
-    return request({
+    return request<siteInfo>({
         url: '/sites/',
         method: 'get',
         params: {}
     })
 }
 
-export function fetchComment() {
-    return request({
-        url: '/comment',
-        method: 'get',
-        params: {}
-    })
-}
-
-export function articleView(params) {
-    return request({
+export function articleView(params:{id:number|string|string[]}) {
+    return request<articleData>({
         url: '/articles/view',
         method: 'post',
         data:params
     })
 }
 
-export function leaveMessage(params) {
-    return request({
+export function leaveMessage(params:messageList) {
+    return request<messageList[]>({
         url: '/messages',
         method: 'post',
         data:params

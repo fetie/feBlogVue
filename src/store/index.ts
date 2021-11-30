@@ -1,27 +1,34 @@
 import { InjectionKey } from 'vue'
-import { createStore, useStore as baseUseStore, Store } from 'vuex'
+import { createStore, useStore as baseUseStore, Store,GetterTree, MutationTree, ActionTree } from 'vuex'
 import {fetchSocial,fetchSiteInfo} from '@/api'
+import {State} from './types/state'
+import {Mutations} from './types/mutation'
+import {Actions} from './types/action'
+import {Getters} from './types/getter'
 
 // define injection key
 export const key: InjectionKey<Store<State>> = Symbol()
 
-export interface State {
-  loading: boolean,
-  runTimeInterval: string,
-  socials: object,
-  websiteInfo: object,
-}
 
 const runAt = '1589878800000';
-let timer = null;
-const state = {
+let timer:NodeJS.Timer | null = null;
+const state:State = {
     loading: false,
     runTimeInterval: '',
-    socials: '',
-    websiteInfo: ''
+    socials: [],
+    websiteInfo: {
+        id: 0,
+        desc: '',
+        notice: '',
+        domain: '',
+        name: '',
+        slogan: '',
+        avatar: '',
+        _id: '',
+    }
 }
 
-const mutations = {
+const mutations: MutationTree<State> & Mutations = {
     SET_LOADING: (state, v) => {
         state.loading = v;
     },
@@ -33,7 +40,7 @@ const mutations = {
     },
     GET_RUNTIME_INTERVAL: (state) => {
         if (!timer || !state.runTimeInterval) {
-            clearInterval(timer)
+            clearInterval(Number(timer))
             timer = setInterval(() => {
                 // state.runTimeInterval = getTimeInterval(runAt);
                 state.runTimeInterval = (runAt);
@@ -42,7 +49,7 @@ const mutations = {
     }
 }
 
-const actions = {
+const actions: ActionTree<State, State> & Actions = {
     setLoading: ({commit}, v) => {
         commit('SET_LOADING', v);
     },
@@ -51,7 +58,7 @@ const actions = {
     },
     getSiteInfo: ({commit,state}) =>{
         return new Promise(resolve => {
-            if (state.websiteInfo){
+            if (state.websiteInfo.id){
                 resolve(state.websiteInfo)
             }else {
                 fetchSiteInfo().then(res => {
@@ -59,14 +66,14 @@ const actions = {
                     commit('SET_SITE_INFO',data);
                     resolve(data);
                 }).catch(err => {
-                    resolve({});
+                    resolve(null);
                 })
             }
         })
     },
     getSocials: ({commit,state}) =>{
         return new Promise((resolve => {
-            if (state.socials){
+            if (state.socials.length>0){
                 resolve(state.socials)
             } else {
                 fetchSocial().then(res =>{
@@ -81,7 +88,7 @@ const actions = {
     }
 }
 
-const getters = {
+const getters: GetterTree<State, State> & Getters = {
     loading: state => state.loading,
     runTimeInterval: state => state.runTimeInterval,
     notice: state => state.websiteInfo?state.websiteInfo.notice:'',

@@ -54,24 +54,28 @@ const contactRule=reactive({
   ]
 })
 
-const contactForm=ref(null)
+const contactForm=ref()
 function submitMessage(){
-  contactForm.value.validate((valid) => {
-    if (valid) {
-      leaveMessage(form).then(res => {
-        let result=res.result
-        if(result){
-          ElMessage.success('留言成功')
-        }
-      }).catch(err => {
-          console.log(err)
-      })
-    } else {
-      console.log('error submit!!')
-      return false
-    }
-  })
-
+  if(contactForm.value){
+    contactForm.value.validate((valid:boolean) => {
+      if (valid) {
+        leaveMessage(form).then(res => {
+          let result=res.result
+          if(result){
+            ElMessage.success('留言成功')
+          }
+          setTimeout(()=>{
+            location.reload()
+          },1000)
+        }).catch(err => {
+            console.log(err)
+        })
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
 }
 </script>
 

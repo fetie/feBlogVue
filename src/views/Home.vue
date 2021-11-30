@@ -55,6 +55,7 @@ import Post from '@/components/post.vue'
 import SmallIco from '@/components/small-ico.vue'
 import Quote from '@/components/quote.vue'
 import {fetchList} from '@/api'
+import {articleData} from '@/api/types'
 
 const props = defineProps({
   cate: {type: String},
@@ -62,7 +63,7 @@ const props = defineProps({
 })
 
 const features=ref([])
-const postList=ref([])
+const postList=ref<articleData[]>([])
 let currPage=ref(1)
 let hasNextPage=ref(false)
 

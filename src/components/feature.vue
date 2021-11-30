@@ -44,15 +44,16 @@
 import {ref} from 'vue'
 
 const srcNames=['jack','lunhui','fly']
-let srcList=ref([])
+let srcList=ref<string[]>([])
 srcList.value=srcNames.map(v=>{
   return getImg(v)
 })
 
-function getImg(name){
-  const path='/src/assets/imgs/suppress/'+name+'.png'
-  const module=import.meta.globEager('/src/assets/imgs/suppress/*')
-  return module[path].default
+function getImg(name:string){
+  return new URL(`/src/assets/imgs/suppress/${name}.png`, import.meta.url).href
+  /*const path='/src/assets/imgs/suppress/'+name+'.png'
+  const module=import.meta.globEager('/src/assets/imgs/suppress/!*')
+  return module[path].default*/
 }
 </script>
 

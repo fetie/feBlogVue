@@ -11,7 +11,7 @@ import {ref, unref, watch,computed} from 'vue'
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
-const searchInput = ref(null)
+const searchInput = ref()
 
 let searchValue = ref('')
 let show = ref(false)

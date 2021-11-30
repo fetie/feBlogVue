@@ -10,7 +10,7 @@
         <div><a target="_blank" class="out-link" href="https://www.liaoxuefeng.com/">廖雪峰的官方网站</a></div>
       </div>
       <div class="footer-item" v-if="socials.length">
-        <div v-for="item in socials" :key="item.id"><a target="_blank" class="out-link" :href="item.href"><i
+        <div v-for="item in socials" :key="item._id"><a target="_blank" class="out-link" :href="item.href"><i
             class="iconfont" :class="item.icon"></i>{{ item.title }}</a></div>
       </div>
     </div>
@@ -24,9 +24,10 @@
 import {ref, computed,onMounted} from 'vue'
 import {useStore} from "@/store";
 import sectionTitle from '@/components/section-title.vue'
+import {socialsList} from '@/api/types'
 
 const store = useStore()
-let socials = ref([])
+let socials = ref<socialsList>([])
 const runTimeInterval = computed(() => store.state.runTimeInterval)
 
 function getSocial() {

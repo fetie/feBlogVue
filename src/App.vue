@@ -18,7 +18,7 @@ const store = useStore()
 
 const show=ref(false)
 
-Promise.all([store.dispatch('getSocials'),store.dispatch('getSiteInfo')]).then(res=>{
+Promise.all([store.dispatch('getSocials'),store.dispatch('getSiteInfo')]).then(()=>{
   show.value=true
 })
 
