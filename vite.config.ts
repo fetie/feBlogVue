@@ -24,7 +24,8 @@ export default defineConfig({
     // 设置代理，根据我们项目实际情况配置
     proxy: {
       '/api': {
-        target: 'http://api.fetie.cn/',
+        target: 'http://localhost:3333',
+        // target: 'http://api.fetie.cn/',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace('/api/', '/')

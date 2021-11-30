@@ -91,7 +91,7 @@ const route=useRoute()
 
 const showDonate = ref(false)
 const comments = ref([])
-let article = reactive<articleData>({
+let article = ref<articleData>({
   content: '',
   createTime: 0,
   updateTime: 0,
@@ -114,7 +114,7 @@ function updateView(){
 
 function getArticle() {
   fetchArticle({id}).then(res => {
-    article = res.result
+    article.value = res.result
   }).catch(err => {
     console.log(err)
   })
@@ -161,7 +161,7 @@ getArticle()
 updateView()
 
 //获取v-html里的元素
-watch(()=>article.content,(v)=>{
+watch(()=>article.value.content,(v)=>{
   nextTick(()=>{
     createMenus()
   })
