@@ -4,7 +4,7 @@
 # 主要技术
 Vue 3全家桶 + Typescript + Vite + Element-plus
 
-#效果
+# 效果
 [fetie](http://fetie.cn)
 
 # Build Setup
