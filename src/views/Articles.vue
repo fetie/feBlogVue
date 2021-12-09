@@ -3,9 +3,12 @@
     <banner></banner>
     <div class="site-content animate">
       <!-- 文章目录 -->
-      <div id="article-menus">
-        <menu-tree :menus="menus" child-label="child"></menu-tree>
+      <div class="sticky">
+        <div id="article-menus">
+          <menu-tree :menus="menus" child-label="child"></menu-tree>
+        </div>
       </div>
+
       <main class="site-main">
         <article class="hentry">
           <!-- 文章头部 -->
@@ -177,16 +180,21 @@ watch(()=>article.value.content,(v)=>{
   }
 }
 
-#article-menus {
-  position: sticky;
-  top: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
-  border-radius: 3px;
-  padding: 15px;
-  width: 300px;
-  transform: translateX(-120%) translateY(260px);
-  font-size: 14px;
+.sticky{
+  position: absolute;
+  height: 100%;
+  #article-menus {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    padding: 15px;
+    width: 300px;
+    transform: translateX(-120%) translateY(100px);
+    font-size: 14px;
+  }
 }
+
 
 article.hentry {
   .entry-header {

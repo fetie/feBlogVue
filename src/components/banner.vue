@@ -92,6 +92,7 @@ getWebSiteInfo()
   height: 500px;
 
   .banner-img {
+    background-image:url(@/assets/imgs/top_banner.jpg);
     width: inherit;
     height: inherit;
     background-position: center;
