@@ -14,14 +14,14 @@
             class="iconfont" :class="item.icon"></i>{{ item.title }}</a></div>
       </div>
     </div>
-    <div class="copyright">Copyright © 2020 by <a target="_blank" class="out-link" href="https://www.fetie.cn">fetie.cn</a>
-      . All rights reserved.<!-- | <a target="_blank" class="out-link"
-                                  href="http://www.beian.miit.gov.cn">渝ICP备17015355号-1</a>--></div>
+    <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.fetie.cn">fetie.cn</a>
+      . All rights reserved. | <a target="_blank" class="out-link"
+                                  href="http://beian.miit.gov.cn/">浙ICP备2021037797号</a></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, computed,onMounted} from 'vue'
+import {ref, computed} from 'vue'
 import {useStore} from "@/store";
 import sectionTitle from '@/components/section-title.vue'
 import {socialsList} from '@/api/types'

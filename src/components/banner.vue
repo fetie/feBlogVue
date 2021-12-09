@@ -1,6 +1,6 @@
 <template>
   <div id="banner" :class="{'home-banner':isHome}">
-    <div class="banner-img" :style="{'background-image': `url(${src})`}">
+    <div class="banner-img">
       <template v-if="isHome">
         <!--博主信息-->
         <div class="focusinfo">
@@ -42,8 +42,7 @@ import {socialsList,siteInfo} from '@/api/types'
 
 const store = useStore()
 
-const props = defineProps({
-  src: {type: String},
+defineProps({
   isHome: {
     type: [Boolean, String],
     default: false
@@ -111,6 +110,7 @@ getWebSiteInfo()
     height: 550px;
 
     .banner-img {
+      background-image:url(@/assets/imgs/top_banner.jpg);
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;

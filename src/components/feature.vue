@@ -16,11 +16,11 @@
       <div class="feature">
         <router-link to="/">
           <el-image
-            :src="getImg('lunhui')"
+            :src="getImg('g2')"
             :preview-src-list="srcList"
           >
           </el-image>
-<!--          <img src="@/assets/imgs/suppress/lunhui.png">-->
+<!--          <img src="@/assets/imgs/suppress/g2.png">-->
         </router-link>
       </div>
     </div>
@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 
-const srcNames=['jack','lunhui','fly']
+const srcNames=['jack','g2','fly']
 let srcList=ref<string[]>([])
 srcList.value=srcNames.map(v=>{
   return getImg(v)
@@ -64,11 +64,12 @@ function getImg(name:string){
 
   :deep(.el-image) {
     img {
-      height: 160px;
+      height: 190px;
       width: 257px;
       object-fit: cover;
       object-position: top;
       border-radius: 5px;
+      margin-right: 5px;
     }
 
   }

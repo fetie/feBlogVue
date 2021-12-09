@@ -1,9 +1,7 @@
 <template>
   <transition name="slide-fade">
     <div class="back-top" v-show="show" @click.stop="getTop">
-      <img class="img1" src="@/assets/_tortoise.svg" alt="">
-      <img class="img2" src="@/assets/tortoise.svg" alt="">
-      <p>Top</p>
+      <img src="@/assets/imgs/gotop.png" alt="">
     </div>
   </transition>
 </template>
@@ -45,26 +43,60 @@ onBeforeUnmount(() => window.removeEventListener('scroll', scroll))
   bottom: 8rem;
   border-radius: 25px;
   cursor: pointer;
-  opacity: .3;
-  transition: .3s;
+  opacity: .8;
   text-align: center;
   z-index: 99;
 
+  &:hover{
+    -webkit-animation: tada 1s .2s ease both;-moz-animation: tada 1s .2s ease both;
+  }
   img {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
   }
 
-  .img2 {
-    display: none;
+  10%, 20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
   }
 
-  &:hover img.img1 {
-    display: none;
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale(1.1) rotate(3deg);
   }
 
-  &:hover img.img2 {
-    display: unset;
+  40%, 60%, 80% {
+    -webkit-transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    -webkit-transform: scale(1) rotate(0);
+  }
+}
+
+@-moz-keyframes tada {
+  0% {
+    -moz-transform: scale(1);
+  }
+
+  10%, 20% {
+    -moz-transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%, 50%, 70%, 90% {
+    -moz-transform: scale(1.1) rotate(3deg);
+  }
+
+  40%, 60%, 80% {
+    -moz-transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    -moz-transform: scale(1) rotate(0);
   }
 }
 

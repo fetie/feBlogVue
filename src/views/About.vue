@@ -7,9 +7,9 @@
           <div class="info-card">
             <p>本站的前端页面来自<a target="_blank" class="out-link" href="http://static.fengziy.cn/Gblog/">Gblog</a>。
             </p>
-            <p>不过我又用vue3+element-plus重写了一遍，样式基本没变。</p>
+            <p>我又用vue3+ts重写了一遍，样式基本没变。</p>
             <p>
-              <a target="_blank" href="https://github.com/fetie" style="color: #ff6d6d;">Github仓库</a>记得star★哟
+              <a target="_blank" href="https://github.com/fetie/feBlogVue" style="color: #ff6d6d;">Github仓库</a>记得star★哟
             </p>
           </div>
         </div>

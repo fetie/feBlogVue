@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <banner isHome="true" src="http://browser9.qhimg.com/bdr/__85/t01b30dd1843479c87c.jpg"></banner>
+        <banner isHome="true"></banner>
         <div class="site-content animate">
             <!--通知栏-->
             <div class="notify">

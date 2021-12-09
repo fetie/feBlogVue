@@ -1,6 +1,6 @@
 <template>
   <div class="articles">
-    <banner src="http://browser9.qhimg.com/bdr/__85/t01b30dd1843479c87c.jpg"></banner>
+    <banner></banner>
     <div class="site-content animate">
       <!-- 文章目录 -->
       <div id="article-menus">
@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref,reactive,onMounted,nextTick,watch} from 'vue'
+import {ref,reactive,nextTick,watch} from 'vue'
 import {useRoute} from 'vue-router'
 import moment from 'moment'
 import Banner from '@/components/banner.vue'
