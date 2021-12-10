@@ -22,9 +22,11 @@
           </div>
           <!-- 社交信息 -->
           <div class="top-social">
-            <div v-for="item in socials" :key="item._id" :title="item.title"><a :href="item.href" target="_blank"
-                                                                               :style="{'color':item.color}"><i
-                class="iconfont" :class="item.icon"></i></a></div>
+            <div v-for="item in socials" :key="item._id" :title="item.title">
+              <a :href="item.href" target="_blank" :style="{'color':item.color}">
+                <i class="iconfont" :class="item.icon"></i>
+              </a>
+            </div>
           </div>
         </div>
         <!--左右倾斜-->
@@ -194,7 +196,11 @@ getWebSiteInfo()
       text-align: center;
       width: 32px;
       background: white;
-      border-radius: 100%;
+      border-radius: 16px;
+      i{
+        margin-left: 2px;
+        font-size: 21px;
+      }
     }
   }
 }
