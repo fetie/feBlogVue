@@ -25,7 +25,7 @@
 
             <!--文章列表-->
             <main class="site-main" :class="{'search':hideSlogan}">
-                <section-title v-if="!hideSlogan">推荐</section-title>
+                <section-title v-if="!hideSlogan">文章</section-title>
               <template v-if="postList.length>0">
                 <post v-for="item in postList" :post="item" :key="item._id"></post>
               </template>
@@ -38,7 +38,7 @@
 
             <!--加载更多-->
             <div class="more" v-show="hasNextPage">
-                <div class="more-btn" @click="getList">More</div>
+                <div class="more-btn" @click="getList">更多</div>
             </div>
         </div>
     </div>

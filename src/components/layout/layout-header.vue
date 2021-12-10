@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
-      Menus
+      菜单
     </div>
     <div class="site-menus" :class="{'mobileShow':mobileShow}" @click.stop="mobileShow=!mobileShow">
       <div class="menu-item header-search">
