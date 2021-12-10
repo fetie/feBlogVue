@@ -10,8 +10,12 @@
         <div><a target="_blank" class="out-link" href="https://www.liaoxuefeng.com/">廖雪峰的官方网站</a></div>
       </div>
       <div class="footer-item" v-if="socials.length">
-        <div v-for="item in socials" :key="item._id"><a target="_blank" class="out-link" :href="item.href"><i
-            class="iconfont" :class="item.icon"></i>{{ item.title }}</a></div>
+        <div v-for="item in socials" :key="item._id">
+          <a target="_blank" class="out-link" :href="item.href">
+            <i class="iconfont" :class="item.icon"></i>
+            <span>{{ item.title }}</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.fetie.cn">fetie.cn</a>
@@ -57,14 +61,17 @@ store.dispatch('initComputeTime');
     align-items: flex-start;
 
     .footer-item {
-      flex: 1;
+      //flex: 1;
 
       & > div:not(:last-child) {
         margin-bottom: 10px;
       }
 
       i {
+        display: inline-block;
         margin-right: 10px;
+        width: 21px;
+        text-align: center;
       }
     }
   }
