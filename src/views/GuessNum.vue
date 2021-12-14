@@ -19,7 +19,9 @@
     </el-collapse>
     <div class="form">
       <el-input v-model="guessNumber" maxlength="8" clearable placeholder="请输入你猜测的数字" />
-      <el-button type="primary" @click="submitNumber">确认</el-button>
+      <feButton @click="submitNumber">确认</feButton>
+<!--      el-button在uc移动端显示不出来-->
+<!--      <el-button type="primary" @click="submitNumber">确认</el-button>-->
     </div>
     <div class="num">
       <div v-for="(item,index) in guessTip" :key="index">
@@ -32,7 +34,8 @@
       <el-alert :title="successTip" type="success" show-icon></el-alert>
     </div>
     <div class="btn">
-      <el-button type="warning" @click="resetNumber">重新开始</el-button>
+      <feButton @click="resetNumber" style="width: 100px;" backgroundColor="#e6a23c">重新开始</feButton>
+<!--      <el-button type="warning" @click="resetNumber">重新开始</el-button>-->
     </div>
   </div>
 </template>
@@ -40,6 +43,7 @@
 <script lang="ts" setup>
 import {ref,watch,onMounted,computed} from 'vue'
 import { ElMessage } from 'element-plus'
+import feButton from '@/components/fe-button.vue'
 
 let guessNumber=ref('') //猜测的数字
 let correctNumber=ref('') //正确数字
@@ -83,7 +87,8 @@ function createNumber(){
 //确认提交
 function submitNumber(){
   const guessNumberArr=guessNumber.value.split('')
-  if(guessNumberArr.length>4 || checkRepeatNum(JSON.parse(JSON.stringify(guessNumberArr)))){
+  console.log(guessNumberArr);
+  if(guessNumberArr.length!==4 || checkRepeatNum(JSON.parse(JSON.stringify(guessNumberArr)))){
     ElMessage.warning('请输入四位不重复数字')
     return
   }
@@ -149,8 +154,7 @@ onMounted(()=>{
     text-indent: 2em;
   }
   .form{
-    display: flex;
-    justify-content: center;
+    text-align: center;
     .el-input{
       width: 200px;
       margin-right: 20px;
@@ -166,8 +170,7 @@ onMounted(()=>{
     }
   }
   .btn{
-    display: flex;
-    justify-content: center;
+    text-align: center;
   }
 }
 </style>

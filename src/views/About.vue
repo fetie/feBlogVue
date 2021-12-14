@@ -24,7 +24,9 @@
                 <el-input v-model="form.content" type="textarea"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitMessage">提交</el-button>
+                <feButton @click="submitMessage">提交</feButton>
+                <!--      el-button在uc移动端显示不出来-->
+<!--                <el-button type="primary" @click="submitMessage">提交</el-button>-->
               </el-form-item>
             </el-form>
           </div>
@@ -37,6 +39,7 @@
 <script lang="ts" setup>
 import {ref,reactive} from 'vue'
 import sectionTitle from '@/components/section-title.vue'
+import feButton from '@/components/fe-button.vue'
 import { ElMessage } from 'element-plus'
 import {leaveMessage} from '@/api'
 

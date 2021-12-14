@@ -16,7 +16,7 @@ const request = <T>(config: AxiosRequestConfig): Promise<BaseResponse<T>> => {
         resolve(res.data)
       },
       err => {
-        switch (err?.code) {
+        switch (err?.code) { //?.在uc移动端不支持
           case 401:
             // token失效
             ElMessage.warning('您还未登录或登录已过期，请重新登录')
