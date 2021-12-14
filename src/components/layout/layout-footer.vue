@@ -78,6 +78,7 @@ store.dispatch('initComputeTime');
 
   .copyright {
     text-align: center;
+    line-height: 18px;
   }
 }
 

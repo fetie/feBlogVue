@@ -4,9 +4,10 @@
 
 <style scoped>
 .quote{
-    border-left: 3px solid #ff6d6d;
-    background-color: #FBFBFB;
-    padding: 15px 20px;
-    border-radius: 3px;
+  border-left: 3px solid #ff6d6d;
+  background-color: #FBFBFB;
+  padding: 15px 20px;
+  border-radius: 3px;
+  line-height: 18px;
 }
 </style>

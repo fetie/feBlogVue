@@ -2,7 +2,7 @@
   <div class="guess-num">
     <h2>猜数字游戏</h2>
     <el-collapse>
-      <el-collapse-item title="游戏规则" name="1">
+      <el-collapse-item name="1">
         <template #title>
           <div class="rule-title">游戏规则</div>
         </template>
@@ -13,7 +13,7 @@
           每猜一个数字，会根据这个数字给出几A几B，其中A前面的数字表示位置正确的数的个数，而B前的数字表示数字正确而位置不对的数的个数。
         </div>
         <div class="indent">
-          如正确答案为 5234，而猜的人猜 5346，则是 1A2B，其中有一个5的位置对了，记为1A，而3和4这两个数字对了，而位置没对，因此记为 2B，合起来就是 1A2B。根据提示的几A几B继续猜，直到猜中（即 4A0B）为止。
+          如正确答案为 5234，而你猜的是 5346，则是 1A2B，其中有一个5的位置对了，记为1A，而3和4这两个数字对了，而位置没对，因此记为 2B，合起来就是 1A2B。根据提示的几A几B继续猜，直到猜中（即 4A0B）为止。
         </div>
       </el-collapse-item>
     </el-collapse>
