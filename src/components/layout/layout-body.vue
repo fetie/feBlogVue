@@ -12,6 +12,8 @@ import backTop from '@/components/back-top.vue'
 <style scoped>
 #layout-body{
     /* header = 80px */
+
+  padding-top: 80px;
     min-height: -moz-calc(100vh - 80px);
     min-height: -webkit-calc(100vh - 80px);
     min-height: calc(100vh - 80px);

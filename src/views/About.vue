@@ -85,7 +85,6 @@ function submitMessage(){
 }
 
 .content-warp {
-  margin-top: 80px;
 
   .about-info {
     margin: 30px 0;

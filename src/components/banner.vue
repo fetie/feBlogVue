@@ -89,7 +89,6 @@ getWebSiteInfo()
 <style scoped lang="less">
 #banner {
   position: relative;
-  margin-top: 90px;
   width: 100%;
   height: 500px;
 

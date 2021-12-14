@@ -73,7 +73,6 @@ getWebSiteInfo()
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 80px;
   font-weight: 400;
 
   .title {

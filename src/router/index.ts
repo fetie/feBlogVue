@@ -44,7 +44,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'article',
     component: () => import('../views/Articles.vue'),
     meta: {title: '文章'}
-  }
+  },
+  {
+    path: '/guess-num',
+    name: 'guessNum',
+    component: () => import('../views/GuessNum.vue'),
+    meta: {title: '猜数字游戏'}
+  },
 ]
 
 const router = createRouter({

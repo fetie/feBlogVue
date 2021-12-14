@@ -28,6 +28,9 @@
         <router-link to="/friend">推荐</router-link>
       </div>
       <div class="menu-item">
+        <router-link to="/guess-num">猜数字游戏</router-link>
+      </div>
+      <div class="menu-item">
         <router-link to="/about">关于</router-link>
       </div>
     </div>
