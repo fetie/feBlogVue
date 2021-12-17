@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3003837 */
-  src: url('iconfont.woff2?t=1639128831477') format('woff2'),
-       url('iconfont.woff?t=1639128831477') format('woff'),
-       url('iconfont.ttf?t=1639128831477') format('truetype');
+  src: url('iconfont.woff2?t=1639729882592') format('woff2'),
+       url('iconfont.woff?t=1639729882592') format('woff'),
+       url('iconfont.ttf?t=1639729882592') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-huojian:before {
+  content: "\e615";
 }
 
 .icon-juejin:before {

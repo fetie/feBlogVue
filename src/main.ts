@@ -8,7 +8,6 @@ import router from './router'
 import { store, key } from './store/index'
 
 import './assets/css/style.less'
-import './assets/font/iconfont.css'
 
 const app=createApp(App)
 
