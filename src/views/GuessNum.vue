@@ -55,7 +55,7 @@ const successTip=computed(()=>{
   if(tipCount.value===1){
     return 'shit，走狗屎运，居然一次就中！'
   }else if(tipCount.value>=2 && tipCount.value<=8){
-    return '有点实力，也就比我差点！'
+    return '可以啊，有点实力！'
   }else if(tipCount.value>8){
     return '没想到最后还是被你猜中了！'
   }
@@ -153,7 +153,9 @@ onMounted(()=>{
     text-indent: 2em;
   }
   .form{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .el-input{
       width: 200px;
       margin-right: 20px;

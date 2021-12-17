@@ -22,5 +22,6 @@
   height: 40px;
   line-height: 40px;
   border-radius: 3px;
+  cursor: pointer;
 }
 </style>
