@@ -3,6 +3,7 @@ import {
   createWebHistory,
   RouteRecordRaw
 } from 'vue-router'
+import { store } from '@/store'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -37,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/friend',
     name: 'friend',
     component: () => import('../views/Friend.vue'),
-    meta: {title: '友链'}
+    meta: {title: '推荐'}
   },
   {
     path: '/article/:id',
@@ -57,5 +58,20 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
-
+router.beforeEach((to, from, next) => {
+    let title = '24k纯铁'
+    if (to.meta.params){
+        title = `${to.meta.title}:${to.params[to.meta.params] || ''} - ${title}`
+    }else {
+        title = `${to.meta.title} - ${title}`
+    }
+    document.title = title
+    if (to.path !== from.path) {
+        store.dispatch('setLoading', true);
+    }
+    next();
+})
+router.afterEach((to, from) => {
+    store.dispatch('setLoading', false);
+})
 export default router
