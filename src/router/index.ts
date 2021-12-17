@@ -3,7 +3,7 @@ import {
   createWebHistory,
   RouteRecordRaw
 } from 'vue-router'
-import { store } from '@/store'
+import {store} from '@/store'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/search',
-    redirect:'/'
+    redirect: '/'
   },
   {
     path: '/search/:words',
@@ -59,19 +59,20 @@ const router = createRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-    let title = '24k纯铁'
-    if (to.meta.params){
-        title = `${to.meta.title}:${to.params[to.meta.params] || ''} - ${title}`
-    }else {
-        title = `${to.meta.title} - ${title}`
-    }
-    document.title = title
-    if (to.path !== from.path) {
-        store.dispatch('setLoading', true);
-    }
-    next();
+  let title = '24k纯铁'
+  if (to.meta.params) {
+    let index = to.meta.params as number
+    title = `${to.meta.title}:${to.params[index] || ''} - ${title}`
+  } else {
+    title = `${to.meta.title} - ${title}`
+  }
+  document.title = title
+  if (to.path !== from.path) {
+    store.dispatch('setLoading', true);
+  }
+  next();
 })
-router.afterEach((to, from) => {
-    store.dispatch('setLoading', false);
+router.afterEach(() => {
+  store.dispatch('setLoading', false);
 })
 export default router
