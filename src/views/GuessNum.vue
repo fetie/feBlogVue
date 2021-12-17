@@ -18,7 +18,7 @@
       </el-collapse-item>
     </el-collapse>
     <div class="form">
-      <el-input v-model="guessNumber" maxlength="8" clearable placeholder="请输入你猜测的数字" />
+      <el-input v-model="guessNumber" @keyup.enter.native="submitNumber" maxlength="8" clearable placeholder="请输入你猜测的数字" />
       <feButton @click="submitNumber">确认</feButton>
 <!--      el-button在uc移动端显示不出来-->
 <!--      <el-button type="primary" @click="submitNumber">确认</el-button>-->
@@ -87,7 +87,6 @@ function createNumber(){
 //确认提交
 function submitNumber(){
   const guessNumberArr=guessNumber.value.split('')
-  console.log(guessNumberArr);
   if(guessNumberArr.length!==4 || checkRepeatNum(JSON.parse(JSON.stringify(guessNumberArr)))){
     ElMessage.warning('请输入四位不重复数字')
     return
