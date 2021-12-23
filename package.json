@@ -8,6 +8,7 @@
     "clean": "rimraf dist node_modules package-lock.json yarn.lock&& npm cache clean --force"
   },
   "dependencies": {
+    "@vueuse/core": "^7.4.0",
     "axios": "^0.21.4",
     "element-plus": "^1.2.0-beta.2",
     "moment": "^2.29.1",

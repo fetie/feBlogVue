@@ -10,7 +10,7 @@
     </div>
     <div class="right-search" @mouseover="searchShow=true" @mouseout="searchShow=false">
       <div class="hover" v-show="!searchShow"></div>
-      <el-input :class="searchShow?'search-show':'search-none'" v-model="mapNum" @keydown="skipScroll" @change="skipScroll" placeholder="请输入1-825的序号" ></el-input>
+      <el-input :class="searchShow?'search-show':'search-none'" v-model="mapNum" @keydown.enter="skipScroll" @change="skipScroll" placeholder="请输入1-825的序号" ></el-input>
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@
 import {ref,onMounted} from 'vue'
 import {useStore} from "@/store";
 import fullpage from "@/components/fullPage.vue";
+import { useDebounceFn } from '@vueuse/core';
 import {historyImg} from '@/plugins/imgArr'
 
 // console.log(historyImg,'hhh');
@@ -39,8 +40,8 @@ function mapScroll(num:number){
   ImgArr.value[num]='https://sdmtai.github.io/'+historyImg[num]
 }
 
-function skipScroll(num:number){
-  num=Number(num)
+const skipScroll=useDebounceFn(()=>{
+  let num=Number(mapNum.value)
   num=num-1
   if(num<0||num>824||isNaN(num)){
     num=skipMap.value=0
@@ -48,7 +49,8 @@ function skipScroll(num:number){
     num=skipMap.value=num
   }
   mapScroll(num)
-}
+},200)
+
 
 function imgComplete(){ //已经load过的不会再load
   store.dispatch('setLoading', false);
