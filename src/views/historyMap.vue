@@ -31,9 +31,12 @@ let skipMap=ref(0)
 let searchShow=ref(false)
 
 function mapScroll(num:number){
+
+  if(!Object.keys(ImgArr.value).includes(num+'')){  //已经加载过的图片不会在重新加载
+    store.dispatch('setLoading', true);
+  }
   currentNum.value=num+1
   ImgArr.value[num]='https://sdmtai.github.io/'+historyImg[num]
-  console.log(ImgArr.value,'img');
 }
 
 function skipScroll(num:number){
@@ -42,16 +45,13 @@ function skipScroll(num:number){
   if(num<0||num>824||isNaN(num)){
     num=skipMap.value=0
   }else{
-    // store.dispatch('setLoading', true);
     num=skipMap.value=num
   }
-  console.log(num,'num');
   mapScroll(num)
 }
 
-function imgComplete(){
-  console.log('asasas;');
-  // store.dispatch('setLoading', false);
+function imgComplete(){ //已经load过的不会再load
+  store.dispatch('setLoading', false);
 }
 
 </script>
