@@ -5,11 +5,14 @@
         <div class="about-site about-info">
           <section-title><span>❤</span>关于博客</section-title>
           <div class="info-card">
-            <p>本站的前端页面来自<a target="_blank" class="out-link" href="http://static.fengziy.cn/Gblog/">Gblog</a>。
-            </p>
-            <p>我又用vue3+ts重写了一遍，样式基本没变。</p>
             <p>
-              <a target="_blank" href="https://github.com/fetie/feBlogVue" style="color: #ff6d6d;">Github仓库</a>记得star★哟
+              本站的前端页面来自<a target="_blank" class="out-link" href="http://static.fengziy.cn/Gblog/">Gblog</a>。不过我用vue3+ts重构了。
+            </p>
+            <p>
+              本站的中国疆域历史地图全部来自<a target="_blank" class="out-link" href="https://sdmtai.github.io/">https://sdmtai.github.io/</a>
+            </p>
+            <p>
+              <a target="_blank" href="https://github.com/fetie/feBlogVue" style="color: #ff6d6d;">我的Github仓库</a>记得star★哟
             </p>
           </div>
         </div>

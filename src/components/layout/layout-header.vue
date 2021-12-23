@@ -31,6 +31,9 @@
         <router-link to="/guess-num">猜数字游戏</router-link>
       </div>
       <div class="menu-item">
+        <router-link to="/history-map">历史地图</router-link>
+      </div>
+      <div class="menu-item">
         <router-link to="/about">关于</router-link>
       </div>
     </div>
@@ -44,7 +47,7 @@ import {fetchCategory} from '@/api'
 import {categoriesList} from '@/api/types'
 
 let lastScrollTop = ref(0)
-let fixed = ref(false)
+let fixed = ref(true)
 let hidden = ref(false)
 let category = ref<categoriesList>([])
 let mobileShow = ref(false)

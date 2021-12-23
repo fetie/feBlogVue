@@ -52,6 +52,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/GuessNum.vue'),
     meta: {title: '猜数字游戏'}
   },
+  {
+    path: '/history-map',
+    name: 'historyMap',
+    component: () => import('../views/historyMap.vue'),
+    meta: {title: '中国历史疆域地图'}
+  },
 ]
 
 const router = createRouter({
