@@ -224,7 +224,8 @@ const calcNodesInfo = () => {
       if (children.length) {
         //   存储每个子节点高度
         state.nodesInfo = Array.from(children).map((item) => {
-          return item.clientHeight;
+          // return item.clientHeight;  //这个属性没有小数不精确，当数组过大时会出现较明显的偏差
+          return Number(item.getBoundingClientRect().height.toFixed(1)); //获取的高度会有小数点
         });
         resolve(state.nodesInfo);
       } else {

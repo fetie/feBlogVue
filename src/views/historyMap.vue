@@ -1,113 +1,145 @@
 <template>
   <div class="history-box">
-    <fullpage @scroll="mapScroll" :skip="skipMap" :isTransition="false">
-      <div class="history-img" v-for="(item) in ImgArr">
-        <img :src="item" alt="" @load="imgComplete">
+    <fullpage :skip="skipMap" :isTransition="false">
+      <div class="history-img" v-for="(item,index) in historyImg">
+        <img :data-src="'https://sdmtai.github.io/'+item" :key="index" @load="imgComplete" class="imgItem" alt="">
       </div>
     </fullpage>
     <div class="current-num">
-      {{currentNum}}
+      {{ currentNum }}
     </div>
     <div class="right-search" @mouseover="searchShow=true" @mouseout="searchShow=false">
       <div class="hover" v-show="!searchShow"></div>
-      <el-input :class="searchShow?'search-show':'search-none'" v-model="mapNum" @keydown.enter="skipScroll" @change="skipScroll" placeholder="请输入1-825的序号" ></el-input>
+      <el-input :class="searchShow?'search-show':'search-none'"
+                clearable
+                v-model="mapNum"
+                maxlength="3"
+                @keydown.enter="skipScroll"
+                @change="skipScroll"
+                placeholder="请输入1-825的序号">
+      </el-input>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref,onMounted} from 'vue'
+import {ref, onMounted, watch} from 'vue'
 import {useStore} from "@/store";
 import fullpage from "@/components/fullPage.vue";
-import { useDebounceFn } from '@vueuse/core';
+import {useDebounceFn} from '@vueuse/core';
 import {historyImg} from '@/plugins/imgArr'
 
-// console.log(historyImg,'hhh');
+const store = useStore()
+let mapNum = ref('')
+let currentNum = ref(1)
+let skipMap = ref(0)
+let searchShow = ref(false)
 
-const store=useStore()
-let ImgArr=ref<string[]>(Array(historyImg.length))
-let mapNum=ref('')
-let currentNum=ref(1)
-let skipMap=ref(0)
-let searchShow=ref(false)
-
-function mapScroll(num:number){
-
-  if(!Object.keys(ImgArr.value).includes(num+'')){  //已经加载过的图片不会在重新加载
-    store.dispatch('setLoading', true);
+watch(mapNum, (n) => {
+  if (n) {
+    mapNum.value = n.replace(/[^\d]/g, '')
   }
-  currentNum.value=num+1
-  ImgArr.value[num]='https://sdmtai.github.io/'+historyImg[num]
-}
+})
 
-const skipScroll=useDebounceFn(()=>{
-  let num=Number(mapNum.value)
-  num=num-1
-  if(num<0||num>824||isNaN(num)){
-    num=skipMap.value=0
-  }else{
-    num=skipMap.value=num
+const skipScroll = useDebounceFn(() => {
+  let num = Number(mapNum.value)
+  num = num - 1
+  if (num < 0 || num > 824 || isNaN(num)) {
+    skipMap.value = 0
+  } else {
+    skipMap.value = num
   }
-  mapScroll(num)
-},200)
+}, 200)
 
 
-function imgComplete(){ //已经load过的不会再load
+function imgComplete() { //已经load过的不会再load
   store.dispatch('setLoading', false);
 }
+
+onMounted(() => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(item => {
+      // isIntersecting是一个Boolean值，判断目标元素当前是否可见
+      if (item.isIntersecting) {
+        store.dispatch('setLoading', true);
+        const target=item.target as HTMLImageElement
+        target.src = target.dataset.src || '' //这里不加个空字符串ts会报错
+        // 图片加载后即停止监听该元素
+        io.unobserve(item.target)
+      }
+    })
+  }, {
+    threshold: 1
+  })
+
+  const imgItemEl = document.querySelectorAll('.imgItem')
+  const imgList = [...Array.from(imgItemEl)]
+  // observe遍历监听所有img节点
+  imgList.forEach(img => io.observe(img))
+
+})
 
 </script>
 
 <style lang="less" scoped>
-.history-img{
-  img{
-    width: 100%;
+.history-box {
+  height: 100%;
+
+  .history-img {
     height: calc(100vh - 80px);
-  }
-}
 
-.current-num{
-  position: fixed;
-  right: 1px;
-  top: 90px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-}
-.right-search{
-  position: fixed;
-  right: 0;
-  top: 150px;
-  width: 200px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .hover{
-    width: 5px;
-    background-color: blueviolet;
-    height: 40px;
-    transform: translateX(195px);
+    img {
+      width: 100%;
+      height: calc(100vh - 80px);
+    }
   }
-}
-.search-show{
-  animation: slide-in-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-}
 
-.search-none{
-  animation: slide-out-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  .current-num {
+    position: fixed;
+    right: 1px;
+    top: 90px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .right-search {
+    position: fixed;
+    right: 0;
+    top: 150px;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .hover {
+      width: 5px;
+      background-color: blueviolet;
+      height: 40px;
+      transform: translateX(195px);
+    }
+  }
+
+  .search-show {
+    animation: slide-in-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  }
+
+  .search-none {
+    animation: slide-out-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  }
 }
 
 
 @keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(200px);
-            transform: translateX(200px);
+    transform: translateX(200px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
 
   }
@@ -116,12 +148,12 @@ function imgComplete(){ //已经load过的不会再load
 @keyframes slide-out-right {
   0% {
     -webkit-transform: translateX(0px);
-            transform: translateX(0px);
+    transform: translateX(0px);
     opacity: 1;
   }
   100% {
     -webkit-transform: translateX(200px);
-            transform: translateX(200px);
+    transform: translateX(200px);
     opacity: 0;
   }
 }
