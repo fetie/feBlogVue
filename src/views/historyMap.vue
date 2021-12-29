@@ -1,6 +1,6 @@
 <template>
   <div class="history-box">
-    <fullpage :skip="skipMap" :isTransition="false">
+    <fullpage @scroll="mapScroll" :skip="skipMap" :isTransition="false">
       <div class="history-img" v-for="(item,index) in historyImg">
         <img :data-src="'https://sdmtai.github.io/'+item" :key="index" @load="imgComplete" class="imgItem" alt="">
       </div>
@@ -40,7 +40,9 @@ watch(mapNum, (n) => {
     mapNum.value = n.replace(/[^\d]/g, '')
   }
 })
-
+function mapScroll(num:number){
+  currentNum.value=num+1
+}
 const skipScroll = useDebounceFn(() => {
   let num = Number(mapNum.value)
   num = num - 1
@@ -49,6 +51,7 @@ const skipScroll = useDebounceFn(() => {
   } else {
     skipMap.value = num
   }
+  mapScroll(num)
 }, 200)
 
 

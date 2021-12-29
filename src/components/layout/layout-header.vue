@@ -87,6 +87,7 @@ onBeforeUnmount(() => {
 <style scoped lang="less">
 #layout-header {
   position: fixed;
+  background-color: #fff;
   top: 0;
   z-index: 9;
   width: 100%;
