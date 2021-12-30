@@ -16,7 +16,7 @@
                 maxlength="3"
                 @keydown.enter="skipScroll"
                 @change="skipScroll"
-                placeholder="请输入1-825的序号">
+                placeholder="请输入1-825的索引序号">
       </el-input>
     </div>
   </div>
@@ -28,6 +28,7 @@ import {useStore} from "@/store";
 import fullpage from "@/components/fullPage.vue";
 import {useDebounceFn} from '@vueuse/core';
 import {historyImg} from '@/plugins/imgArr'
+import { ElMessage } from 'element-plus'
 
 const store = useStore()
 let mapNum = ref('')
@@ -47,7 +48,8 @@ const skipScroll = useDebounceFn(() => {
   let num = Number(mapNum.value)
   num = num - 1
   if (num < 0 || num > 824 || isNaN(num)) {
-    skipMap.value = 0
+    ElMessage.warning('请输入正确的索引序号')
+    return
   } else {
     skipMap.value = num
   }
