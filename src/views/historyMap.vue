@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import {ref, onMounted, watch} from 'vue'
 import {useStore} from "@/store";
-import fullpage from "@/components/fullPage.vue";
+import fullpage from "fe-fullpage-vue/fe-fullpage-ts.vue";
 import {useDebounceFn} from '@vueuse/core';
 import {historyImg} from '@/plugins/imgArr'
 import { ElMessage } from 'element-plus'

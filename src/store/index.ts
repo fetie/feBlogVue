@@ -106,6 +106,7 @@ export const store = createStore<State>({
   getters: getters
 })
 
+//为了useStore 能正确返回类型化的 store
 export function useStore () {
   return baseUseStore(key)
 }
