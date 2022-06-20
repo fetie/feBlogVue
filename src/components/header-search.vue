@@ -1,23 +1,29 @@
 <template>
   <div class="header-search">
     <i class="iconfont icon-sousuo" @click.stop="click"></i>
-    <input ref="searchInput" :class="{'show':show}" v-model="searchValue" type="text" @click.stop=""
-           @keyup.enter="search"/>
+    <input
+      ref="searchInput"
+      :class="{ show: show }"
+      v-model="searchValue"
+      type="text"
+      @click.stop=""
+      @keyup.enter="search"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, unref, watch,computed} from 'vue'
-import {useRouter} from 'vue-router'
+import { ref, unref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const searchInput = ref()
 
-let searchValue = ref('')
-let show = ref(false)
+const searchValue = ref('')
+const show = ref(false)
 
 function search() {
-  router.push({name: 'search', params: {words: searchValue.value}});
+  router.push({ name: 'search', params: { words: searchValue.value } })
 }
 
 function click() {
@@ -38,12 +44,11 @@ function close() {
 watch(show, (value) => {
   if (value) {
     document.body.addEventListener('click', close)
-  } else {
+  }
+  else {
     document.body.removeEventListener('click', close)
   }
 })
-
-
 </script>
 
 <style scoped lang="less">
@@ -64,7 +69,7 @@ watch(show, (value) => {
     background: transparent;
     height: 30px;
     width: 0;
-    transition: .2s all;
+    transition: 0.2s all;
 
     &.show {
       width: 200px;

@@ -1,13 +1,29 @@
 <template>
   <div id="layout-footer">
     <div class="footer-main">
-
       <div class="footer-item">
-        <div style="font-size:17px;font-weight: bold;">资源</div>
-        <div><a target="_blank" class="out-link" href="https://segmentfault.com/weekly?utm_source=sf-footer">每周精选</a>
+        <div style="font-size: 17px; font-weight: bold">资源</div>
+        <div>
+          <a
+            target="_blank"
+            class="out-link"
+            href="https://segmentfault.com/weekly?utm_source=sf-footer"
+            >每周精选</a
+          >
         </div>
-        <div><a target="_blank" class="out-link" href="https://www.jmjc.tech/">简明教程</a></div>
-        <div><a target="_blank" class="out-link" href="https://www.liaoxuefeng.com/">廖雪峰的官方网站</a></div>
+        <div>
+          <a target="_blank" class="out-link" href="https://www.jmjc.tech/"
+            >简明教程</a
+          >
+        </div>
+        <div>
+          <a
+            target="_blank"
+            class="out-link"
+            href="https://www.liaoxuefeng.com/"
+            >廖雪峰的官方网站</a
+          >
+        </div>
       </div>
       <div class="footer-item" v-if="socials.length">
         <div v-for="item in socials" :key="item._id">
@@ -18,34 +34,41 @@
         </div>
       </div>
     </div>
-    <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.fetie.cn">fetie.cn</a>
-      . All rights reserved. | <a target="_blank" class="out-link"
-                                  href="http://beian.miit.gov.cn/">浙ICP备2021037797号</a></div>
+    <div class="copyright">
+      Copyright © 2021 by
+      <a target="_blank" class="out-link" href="https://www.fetie.cn"
+        >fetie.cn</a
+      >
+      . All rights reserved. |
+      <a target="_blank" class="out-link" href="http://beian.miit.gov.cn/"
+        >浙ICP备2021037797号</a
+      >
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, computed} from 'vue'
-import {useStore} from "@/store";
-import sectionTitle from '@/components/section-title.vue'
-import {socialsList} from '@/api/types'
+import { ref } from 'vue'
+import { useStore } from '@/store'
+// import sectionTitle from '@/components/section-title.vue'
+import type { socialsList } from '@/api/types'
 
 const store = useStore()
-let socials = ref<socialsList>([])
-const runTimeInterval = computed(() => store.state.runTimeInterval)
+const socials = ref<socialsList>([])
+// const runTimeInterval = computed(() => store.state.runTimeInterval)
 
 function getSocial() {
-  socials.value=store.getters.socials
+  socials.value = store.getters.socials
 }
 
-getSocial();
-store.dispatch('initComputeTime');
+getSocial()
+store.dispatch('initComputeTime')
 </script>
 
 <style scoped lang="less">
 #layout-footer {
   padding: 2%;
-  border-top: 1px solid #F7F7F7;
+  border-top: 1px solid #f7f7f7;
   font-size: 13px;
   color: #9c9c9c;
 

@@ -3,22 +3,25 @@
     <li v-for="item in menus">
       <a :href="`#${item.id}`">{{ item.title }}</a>
       <ul v-if="item[childLabel]" class="child">
-        <menu-tree :menus="item[childLabel]" :child-label="childLabel"></menu-tree>
+        <menu-tree
+          :menus="item[childLabel]"
+          :child-label="childLabel"
+        ></menu-tree>
       </ul>
     </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   menus: {
     type: [Object, Array],
-    required: true
+    required: true,
   },
   childLabel: {
     type: String,
-    default: 'child'
-  }
+    default: 'child',
+  },
 })
 </script>
 

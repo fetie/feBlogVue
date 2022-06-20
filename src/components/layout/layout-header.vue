@@ -1,17 +1,23 @@
 <template>
-  <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
+  <div
+    id="layout-header"
+    :class="{ fixed: fixed, hidden: hidden }"
+    @click.stop="mobileShow = false"
+  >
     <div class="site-logo">
       <router-link to="/">
-        <img src="@/assets/logo.png" alt="">
+        <img src="@/assets/logo.png" alt="" />
         <p class="site-name roll-in-right">24k纯铁</p>
       </router-link>
     </div>
-    <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
-      菜单
-    </div>
-    <div class="site-menus" :class="{'mobileShow':mobileShow}" @click.stop="mobileShow=!mobileShow">
+    <div class="menus-btn" @click.stop="mobileShow = !mobileShow">菜单</div>
+    <div
+      class="site-menus"
+      :class="{ mobileShow: mobileShow }"
+      @click.stop="mobileShow = !mobileShow"
+    >
       <div class="menu-item header-search">
-        <header-search/>
+        <header-search />
       </div>
       <div class="menu-item">
         <router-link to="/">首页</router-link>
@@ -20,7 +26,9 @@
         <a href="#">文章</a>
         <div class="childMenu" v-if="category.length">
           <div class="sub-menu" v-for="item in category" :key="item.title">
-            <router-link :to="`/category/${item.title}`">{{ item.title }}</router-link>
+            <router-link :to="`/category/${item.title}`">{{
+              item.title
+            }}</router-link>
           </div>
         </div>
       </div>
@@ -41,25 +49,30 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, onBeforeUnmount} from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import HeaderSearch from '@/components/header-search.vue'
-import {fetchCategory} from '@/api'
-import {categoriesList} from '@/api/types'
+import { fetchCategory } from '@/api'
+import type { categoriesList } from '@/api/types'
 
-let lastScrollTop = ref(0)
-let fixed = ref(true)
-let hidden = ref(false)
-let category = ref<categoriesList>([])
-let mobileShow = ref(false)
+const lastScrollTop = ref(0)
+const fixed = ref(true)
+const hidden = ref(false)
+const category = ref<categoriesList>([])
+const mobileShow = ref(false)
 
 function watchScroll() {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+  const scrollTop
+    = window.pageYOffset
+    || document.documentElement.scrollTop
+    || document.body.scrollTop
   if (scrollTop === 0) {
-    fixed.value = false;
-  } else if (scrollTop >= lastScrollTop.value) {
-    fixed.value = false;
-    hidden.value = true;
-  } else {
+    fixed.value = false
+  }
+  else if (scrollTop >= lastScrollTop.value) {
+    fixed.value = false
+    hidden.value = true
+  }
+  else {
     fixed.value = true
     hidden.value = false
   }
@@ -67,11 +80,13 @@ function watchScroll() {
 }
 
 function getCategory() {
-  fetchCategory().then(res => {
-    category.value = res.result
-  }).catch(err => {
-    console.log(err)
-  })
+  fetchCategory()
+    .then((res) => {
+      category.value = res.result
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 onMounted(() => {
@@ -80,7 +95,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", watchScroll)
+  window.removeEventListener('scroll', watchScroll)
 })
 </script>
 
@@ -96,30 +111,30 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: .3s all ease;
-  -webkit-transition: .3s all ease;
-  -moz-transition: .3s all linear;
-  -o-transition: .3s all ease;
-  -ms-transition: .3s all ease;
+  transition: 0.3s all ease;
+  -webkit-transition: 0.3s all ease;
+  -moz-transition: 0.3s all linear;
+  -o-transition: 0.3s all ease;
+  -ms-transition: 0.3s all ease;
 
   &.hidden {
     top: -100px;
   }
 
   &.fixed {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   }
   .roll-in-right {
     -webkit-animation: roll-in-right 0.6s ease-out both;
-            animation: roll-in-right 0.6s ease-out both;
+    animation: roll-in-right 0.6s ease-out both;
   }
 }
 
 .site-logo {
   text-align: center;
 
-  a{
+  a {
     display: flex;
     align-items: center;
     height: 60px;
@@ -177,7 +192,7 @@ onBeforeUnmount(() => {
 
   .childMenu {
     width: 130px;
-    background-color: #FDFDFD;
+    background-color: #fdfdfd;
     border-radius: 3px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -186,13 +201,14 @@ onBeforeUnmount(() => {
     z-index: 2;
     opacity: 0;
     visibility: hidden;
-    transition: .7s all ease;
-    -webkit-transition: .6s all ease;
-    -moz-transition: .6s all linear;
-    -o-transition: .6s all ease;
-    -ms-transition: .6s all ease;
+    transition: 0.7s all ease;
+    -webkit-transition: 0.6s all ease;
+    -moz-transition: 0.6s all linear;
+    -o-transition: 0.6s all ease;
+    -ms-transition: 0.6s all ease;
 
-    &:before, &:after {
+    &:before,
+    &:after {
       content: '';
       position: absolute;
       width: 0;
@@ -248,7 +264,7 @@ onBeforeUnmount(() => {
     position: absolute;
     display: none;
     visibility: hidden;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     width: 100%;
     left: 0;
     top: 80px;
@@ -268,13 +284,14 @@ onBeforeUnmount(() => {
       position: relative;
       width: 100%;
       top: 0;
-      background-color: #F3F3F3;
+      background-color: #f3f3f3;
       opacity: 1;
       visibility: visible;
       border: none;
       box-shadow: none;
 
-      &:before, &:after {
+      &:before,
+      &:after {
         content: '';
         position: relative;
         width: 0;
@@ -293,7 +310,6 @@ onBeforeUnmount(() => {
   }
 }
 
-
 /* ----------------------------------------------
  * Generated by Animista on 2021-12-17 16:47:3
  * Licensed under FreeBSD License.
@@ -309,26 +325,25 @@ onBeforeUnmount(() => {
 @-webkit-keyframes roll-in-right {
   0% {
     -webkit-transform: translateX(800px) rotate(540deg);
-            transform: translateX(800px) rotate(540deg);
+    transform: translateX(800px) rotate(540deg);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
 }
 @keyframes roll-in-right {
   0% {
     -webkit-transform: translateX(800px) rotate(540deg);
-            transform: translateX(800px) rotate(540deg);
+    transform: translateX(800px) rotate(540deg);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
 }
-
 </style>

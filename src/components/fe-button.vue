@@ -1,20 +1,20 @@
 <template>
-  <div class="button" :style="{backgroundColor:backgroundColor}">
+  <div class="button" :style="{ backgroundColor: backgroundColor }">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts" setup>
-  defineProps({
-    backgroundColor:{
-      type: String,
-      default: '#409eff'
-    }
-  })
+defineProps({
+  backgroundColor: {
+    type: String,
+    default: '#409eff',
+  },
+})
 </script>
 
 <style lang="less" scoped>
-.button{
+.button {
   display: inline-block;
   width: 75px;
   color: #fff;

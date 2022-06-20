@@ -7,23 +7,30 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, onBeforeUnmount} from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-let show = ref(false)
+const show = ref(false)
 
 function scroll() {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+  const scrollTop
+    = window.pageYOffset
+    || document.documentElement.scrollTop
+    || document.body.scrollTop
   if (scrollTop > 150) {
     show.value = true
-  } else {
+  }
+  else {
     show.value = false
   }
 }
 
 function getTop() {
-  let timer = setInterval(() => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-    let speed = Math.ceil(scrollTop / 5)
+  const timer = setInterval(() => {
+    const scrollTop
+      = window.pageYOffset
+      || document.documentElement.scrollTop
+      || document.body.scrollTop
+    const speed = Math.ceil(scrollTop / 5)
     document.documentElement.scrollTop = scrollTop - speed
     if (scrollTop === 0) {
       clearInterval(timer)
@@ -37,21 +44,21 @@ onBeforeUnmount(() => window.removeEventListener('scroll', scroll))
 
 <style scoped lang="less">
 .back-top {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: fixed;
   right: 3rem;
   bottom: 8rem;
   border-radius: 25px;
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
   text-align: center;
   z-index: 99;
 
-  &:hover{
+  &:hover {
     -webkit-animation: jello-vertical 0.9s both;
-	        animation: jello-vertical 0.9s both;
+    animation: jello-vertical 0.9s both;
   }
-  i{
+  i {
     font-size: 40px;
     color: #1e59e4;
   }
@@ -72,65 +79,63 @@ onBeforeUnmount(() => window.removeEventListener('scroll', scroll))
 @-webkit-keyframes jello-vertical {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
-            transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
   30% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
-            transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
   }
   40% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
-            transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
   }
   50% {
     -webkit-transform: scale3d(0.85, 1.15, 1);
-            transform: scale3d(0.85, 1.15, 1);
+    transform: scale3d(0.85, 1.15, 1);
   }
   65% {
     -webkit-transform: scale3d(1.05, 0.95, 1);
-            transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
   }
   75% {
     -webkit-transform: scale3d(0.95, 1.05, 1);
-            transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
   }
   100% {
     -webkit-transform: scale3d(1, 1, 1);
-            transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 @keyframes jello-vertical {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
-            transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
   30% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
-            transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
   }
   40% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
-            transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
   }
   50% {
     -webkit-transform: scale3d(0.85, 1.15, 1);
-            transform: scale3d(0.85, 1.15, 1);
+    transform: scale3d(0.85, 1.15, 1);
   }
   65% {
     -webkit-transform: scale3d(1.05, 0.95, 1);
-            transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
   }
   75% {
     -webkit-transform: scale3d(0.95, 1.05, 1);
-            transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
   }
   100% {
     -webkit-transform: scale3d(1, 1, 1);
-            transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
-
-
 
 @media (max-width: 600px) {
   .back-top {

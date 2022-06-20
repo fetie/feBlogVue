@@ -1,5 +1,5 @@
 <template>
-  <div id="banner" :class="{'home-banner':isHome}">
+  <div id="banner" :class="{ 'home-banner': isHome }">
     <div class="banner-img">
       <template v-if="isHome">
         <!--博主信息-->
@@ -13,7 +13,7 @@
                 :preview-src-list="srcList"
               >
               </el-image>
-<!--              <img src="@/assets/avatar.jpg">-->
+              <!--              <img src="@/assets/avatar.jpg">-->
             </router-link>
           </div>
           <!-- 简介 -->
@@ -23,7 +23,11 @@
           <!-- 社交信息 -->
           <div class="top-social">
             <div v-for="item in socials" :key="item._id" :title="item.title">
-              <a :href="item.href" target="_blank" :style="{'color':item.color}">
+              <a
+                :href="item.href"
+                target="_blank"
+                :style="{ color: item.color }"
+              >
                 <i class="iconfont" :class="item.icon"></i>
               </a>
             </div>
@@ -38,17 +42,17 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
-import {useStore} from '@/store'
-import {socialsList,siteInfo} from '@/api/types'
+import { ref } from 'vue'
+import { useStore } from '@/store'
+import type { siteInfo, socialsList } from '@/api/types'
 
 const store = useStore()
 
 defineProps({
   isHome: {
     type: [Boolean, String],
-    default: false
-  }
+    default: false,
+  },
 })
 
 const websiteInfo = ref<siteInfo>({
@@ -64,22 +68,21 @@ const websiteInfo = ref<siteInfo>({
 const socials = ref<socialsList>([])
 
 function getSocial() {
-  socials.value=store.getters.socials
+  socials.value = store.getters.socials
 }
 
 function getWebSiteInfo() {
-  websiteInfo.value=store.getters.websiteInfo
+  websiteInfo.value = store.getters.websiteInfo
 }
 
+const srcList = ref<string[]>([])
+srcList.value = [getImg('avatar')]
 
-let srcList=ref<string[]>([])
-srcList.value=[getImg('avatar')]
-
-function getImg(name:string){
+function getImg(name: string) {
   return new URL(`/src/assets/${name}.jpg`, import.meta.url).href
-  /*const path='/src/assets/'+name+'.jpg'
+  /* const path='/src/assets/'+name+'.jpg'
   const module=import.meta.globEager('/src/assets/!*')
-  return module[path].default*/
+  return module[path].default */
 }
 
 getSocial()
@@ -93,7 +96,7 @@ getWebSiteInfo()
   height: 500px;
 
   .banner-img {
-    background-image:url(@/assets/imgs/top_banner.jpg);
+    background-image: url(@/assets/imgs/top_banner.jpg);
     width: inherit;
     height: inherit;
     background-position: center;
@@ -112,7 +115,7 @@ getWebSiteInfo()
     height: 550px;
 
     .banner-img {
-      background-image:url(@/assets/imgs/top_banner.jpg);
+      background-image: url(@/assets/imgs/top_banner.jpg);
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -131,7 +134,7 @@ getWebSiteInfo()
       position: absolute;
       width: 0;
       height: 0;
-      border-bottom: 100px solid #FFF;
+      border-bottom: 100px solid #fff;
       border-right: 800px solid transparent;
       left: 0;
       bottom: 0;
@@ -142,7 +145,7 @@ getWebSiteInfo()
       position: absolute;
       width: 0;
       height: 0;
-      border-bottom: 100px solid #FFF;
+      border-bottom: 100px solid #fff;
       border-left: 800px solid transparent;
       right: 0;
       bottom: 0;
@@ -170,11 +173,12 @@ getWebSiteInfo()
   .header-info {
     width: 60%;
     font-size: 14px;
-    color: #EAEADF;
+    color: #eaeadf;
     background: rgba(0, 0, 0, 0.66);
     padding: 20px 30px;
     margin: 30px auto 0 auto;
-    font-family: miranafont, "Hiragino Sans GB", STXihei, "Microsoft YaHei", SimSun, sans-serif;
+    font-family: miranafont, 'Hiragino Sans GB', STXihei, 'Microsoft YaHei',
+      SimSun, sans-serif;
     letter-spacing: 1px;
     line-height: 30px;
   }
@@ -185,7 +189,8 @@ getWebSiteInfo()
     margin-left: 10px;
     list-style: none;
     display: inline-block;
-    font-family: miranafont, "Hiragino Sans GB", STXihei, "Microsoft YaHei", SimSun, sans-serif;
+    font-family: miranafont, 'Hiragino Sans GB', STXihei, 'Microsoft YaHei',
+      SimSun, sans-serif;
 
     div {
       float: left;
@@ -196,7 +201,7 @@ getWebSiteInfo()
       width: 32px;
       background: white;
       border-radius: 16px;
-      i{
+      i {
         margin-left: 2px;
         font-size: 21px;
       }

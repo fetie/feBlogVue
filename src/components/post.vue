@@ -3,22 +3,30 @@
     <div class="post-entry">
       <div class="feature">
         <router-link :to="`/article/${post._id}`">
-          <img :src="post.banner[0]"/>
+          <img :src="post.banner[0]" />
         </router-link>
       </div>
       <h1 class="entry-title">
-        <router-link :to="`/article/${post._id}`"><span v-if="post.sort>10"
-                                                        style="color:#ff6d6d;font-weight:600">[置顶] </span>{{ post.title }}
+        <router-link :to="`/article/${post._id}`"
+          ><span v-if="post.sort > 10" style="color: #ff6d6d; font-weight: 600"
+            >[置顶] </span
+          >{{ post.title }}
         </router-link>
       </h1>
       <div class="p-time">
-        <i class="iconfont iconmeditor-time"></i> {{ moment.unix(post.createTime).format('YYYY-MM-DD') }}<i
-          v-if="post.viewNum>100" class="iconfont iconfire" style="margin-left: 5px;color: #ff6d6d;"></i>
+        <i class="iconfont iconmeditor-time"></i>
+        {{ moment.unix(post.createTime).format('YYYY-MM-DD')
+        }}<i
+          v-if="post.viewNum > 100"
+          class="iconfont iconfire"
+          style="margin-left: 5px; color: #ff6d6d"
+        ></i>
       </div>
       <p class="summary">{{ stripTag(post.content) }}</p>
       <footer class="entry-footer">
         <div class="post-more">
-          <router-link :to="`/article/${post._id}`"><i class="iconfont iconfish-li" style="font-size: 25px;"></i>
+          <router-link :to="`/article/${post._id}`"
+            ><i class="iconfont iconfish-li" style="font-size: 25px"></i>
           </router-link>
         </div>
         <div class="info-meta">
@@ -29,24 +37,26 @@
                         </span>
           </div>-->
           <div class="views">
-            <span><i class="iconfont iconeyes"></i>{{ post.viewNum }} 热度</span>
+            <span
+              ><i class="iconfont iconeyes"></i>{{ post.viewNum }} 热度</span
+            >
           </div>
         </div>
       </footer>
     </div>
-    <hr/>
+    <hr />
   </article>
 </template>
 
 <script lang="ts" setup>
-import {PropType} from 'vue'
+import type { PropType } from 'vue'
 import moment from 'moment'
-import {articleData} from '@/api/types'
+import type { articleData } from '@/api/types'
 
-const props=defineProps({
+defineProps({
   post: {
     type: Object as PropType<articleData>,
-    default:()=>{
+    default: () => {
       return {
         content: '',
         createTime: 0,
@@ -58,12 +68,12 @@ const props=defineProps({
         banner: [0],
         _id: '',
       }
-    }
-  }
+    },
+  },
 })
 
-function stripTag(req:string) {
-  return req.replace(/<\/?.+?>/g, "").replace(/ /g, "")
+function stripTag(req: string) {
+  return req.replace(/<\/?.+?>/g, '').replace(/ /g, '')
 }
 </script>
 
@@ -84,7 +94,7 @@ function stripTag(req:string) {
       object-fit: cover;
       border-radius: 50%;
       padding: 2px;
-      border: 1px solid #DADADA;
+      border: 1px solid #dadada;
       position: relative;
       transition: all 0.2s linear;
       overflow: hidden;
@@ -147,7 +157,7 @@ function stripTag(req:string) {
     .post-more {
       margin-top: 10px;
       text-align: right;
-      color: #A0DAD0;
+      color: #a0dad0;
 
       a:hover {
         color: #737373;
@@ -165,21 +175,22 @@ function stripTag(req:string) {
       -webkit-transform: translate3d(-150px, 0, 0);
       transform: translate3d(-150px, 0, 0);
       visibility: hidden;
-      transition: .7s all ease;
-      -webkit-transition: .6s all ease;
-      -moz-transition: .6s all linear;
-      -o-transition: .6s all ease;
-      -ms-transition: .6s all ease;
+      transition: 0.7s all ease;
+      -webkit-transition: 0.6s all ease;
+      -moz-transition: 0.6s all linear;
+      -o-transition: 0.6s all ease;
+      -ms-transition: 0.6s all ease;
 
-      span, a {
-        color: #B3B3B3;
+      span,
+      a {
+        color: #b3b3b3;
         font-size: 12px;
       }
 
       i {
         margin-top: 3px;
         margin-right: 10px;
-        float: left
+        float: left;
       }
     }
 
@@ -187,7 +198,6 @@ function stripTag(req:string) {
       float: left;
     }
   }
-
 }
 
 .post-entry:hover footer.entry-footer .info-meta {
@@ -202,7 +212,7 @@ function stripTag(req:string) {
   height: 1px;
   margin: 0 auto;
   border: 0;
-  background: #EFEFEF;
+  background: #efefef;
 }
 
 /*******/

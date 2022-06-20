@@ -11,10 +11,8 @@
       </section-title>
       <!---说明--->
       <div class="statement">
-        <p>
-          下面是一些我自己收藏的好用的站点，有需要的可以看看
-        </p>
-        <img src="" alt="">
+        <p>下面是一些我自己收藏的好用的站点，有需要的可以看看</p>
+        <img src="" alt="" />
         <!--<quote>
           <p>站点名称：{{ websiteInfo.name }}</p>
           <p>站点链接：{{ websiteInfo.domain }}</p>
@@ -23,24 +21,26 @@
         <p>接入成功后将会以邮件的方式通知。</p>-->
       </div>
       <!----->
-      <hr/>
+      <hr />
       <div class="friend-list animate">
-        <div class="friend-item" v-for="item in list" :key="item._id"><a target="_blank" :href="item.path">
-          <div class="site-name">{{ item.siteName }}</div>
-          <div class="site-detail">{{ item.desc }}</div>
-        </a></div>
+        <div class="friend-item" v-for="item in list" :key="item._id">
+          <a target="_blank" :href="item.path">
+            <div class="site-name">{{ item.siteName }}</div>
+            <div class="site-detail">{{ item.desc }}</div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
-import {useStore} from '@/store'
+import { ref } from 'vue'
+import { fetchFriend } from '../api'
+import { useStore } from '@/store'
 import sectionTitle from '@/components/section-title.vue'
-import Quote from '@/components/quote.vue'
-import {fetchFriend} from '../api'
-import {friendsList} from '@/api/types/index'
+// import Quote from '@/components/quote.vue'
+import type { friendsList } from '@/api/types/index'
 
 const store = useStore()
 
@@ -48,15 +48,17 @@ const websiteInfo = ref({})
 const list = ref<friendsList>([])
 
 function getFriend() {
-  fetchFriend().then(res => {
-    list.value = res.result || []
-  }).catch(err => {
-    console.log(err)
-  })
+  fetchFriend()
+    .then((res) => {
+      list.value = res.result || []
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 function getWebSiteInfo() {
-  websiteInfo.value=store.getters.websiteInfo
+  websiteInfo.value = store.getters.websiteInfo
 }
 
 getFriend()
@@ -100,7 +102,12 @@ hr {
   margin: 40px 0;
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 109, 109, 0.75), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(255, 109, 109, 0.75),
+    rgba(0, 0, 0, 0)
+  );
 }
 
 .friend-list {
@@ -112,7 +119,7 @@ hr {
     /*height: 100px;*/
     margin: 0 5% 20px 0;
     padding: 10px 30px;
-    border: 1px solid #ECECEC;
+    border: 1px solid #ececec;
     border-radius: 3px;
 
     &:hover {
@@ -123,7 +130,8 @@ hr {
       margin-right: 0;
     }
 
-    .site-name, .site-detail {
+    .site-name,
+    .site-detail {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -133,7 +141,7 @@ hr {
 
     .site-name {
       color: #8fd0cc;
-      border-bottom: 1px dotted #ECECEC;
+      border-bottom: 1px dotted #ececec;
     }
 
     .site-detail {

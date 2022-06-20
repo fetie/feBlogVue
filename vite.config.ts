@@ -1,7 +1,7 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // 如果编辑器提示 path 模块找不到，则可以安装一下 @types/node -> npm i @types/node -D
-import { resolve } from 'path'
 import ElementPlus from 'unplugin-element-plus/vite'
 
 // https://vitejs.dev/config/
@@ -12,8 +12,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src') // 设置 `@` 指向 `src` 目录
-    }
+      '@': resolve(__dirname, './src'), // 设置 `@` 指向 `src` 目录
+    },
   },
   base: './', // 设置打包路径
   server: {
@@ -28,8 +28,21 @@ export default defineConfig({
         target: 'http://localhost:3333',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace('/api/', '/')
-      }
-    }
-  }
+        rewrite: path => path.replace('/api/', '/'),
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: './assets',
+    cssCodeSplit: true,
+    sourcemap: false,
+    terserOptions: {
+      compress: {
+        // 生产环境去除console
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+  },
 })

@@ -5,6 +5,10 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
+    "prepare": "husky install",
+    "lint": "vue-cli-service lint",
+    "lint:code": "eslint \"src/**/*.{js,ts,tsx,vue}\"",
+    "lint:fix": "eslint --fix \"src/*.{js,ts,tsx,vue}\"",
     "clean": "rimraf dist node_modules package-lock.json yarn.lock&& npm cache clean --force"
   },
   "dependencies": {
@@ -18,13 +22,38 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config-ts": "^0.25.1",
     "@types/node": "^16.10.1",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.0.5",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-vue": "^9.1.1",
+    "husky": "^8.0.1",
     "less": "^4.1.1",
+    "lint-staged": "^13.0.1",
+    "prettier": "^2.6.2",
     "typescript": "^4.3.2",
     "unplugin-element-plus": "^0.1.3",
     "vite": "^2.5.1",
     "vue-tsc": "^0.2.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "prettier --config .prettierrc.js --write",
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet",
+      "git add"
+    ],
+    "*.vue": [
+      "prettier --config .prettierrc.js --parser=vue --write",
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet",
+      "git add"
+    ],
+    "*.{css,scss}": [
+      "prettier --config .prettierrc.js --write",
+      "git add"
+    ]
   }
 }

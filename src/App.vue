@@ -7,22 +7,22 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import layoutHeader from '@/components/layout/layout-header.vue'
 import layoutBody from '@/components/layout/layout-body.vue'
 import layoutFooter from '@/components/layout/layout-footer.vue'
 import Loading from '@/components/loading.vue'
-import {useStore} from '@/store'
+import { useStore } from '@/store'
 
 const store = useStore()
 
-const show=ref(false)
+const show = ref(false)
 
-Promise.all([store.dispatch('getSocials'),store.dispatch('getSiteInfo')]).then(()=>{
-  show.value=true
-})
-
-
+Promise.all([store.dispatch('getSocials'), store.dispatch('getSiteInfo')]).then(
+  () => {
+    show.value = true
+  },
+)
 </script>
 <style lang="less">
 #app {

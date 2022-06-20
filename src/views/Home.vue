@@ -1,120 +1,121 @@
 <template>
-    <div class="home">
-        <banner isHome="true"></banner>
-        <div class="site-content animate">
-            <!--通知栏-->
-            <div class="notify">
-                <div class="search-result" v-if="hideSlogan">
-                    <span v-if="searchWords">搜索结果："{{searchWords}}" 相关文章</span>
-                    <span v-else-if="category">分类 "{{category}}" 相关文章</span>
-                </div>
-                <quote v-else>{{notice}}</quote>
-            </div>
-
-            <!--焦点图-->
-            <div class="top-feature" v-if="!hideSlogan">
-                <section-title>
-                    <div style="display: flex;align-items: flex-end;">焦点图<small-ico></small-ico></div>
-                </section-title>
-                <div class="feature-content">
-                    <div class="feature-item">
-                        <feature />
-                    </div>
-                </div>
-            </div>
-
-            <!--文章列表-->
-            <main class="site-main" :class="{'search':hideSlogan}">
-                <section-title v-if="!hideSlogan">文章</section-title>
-              <template v-if="postList.length>0">
-                <post v-for="item in postList" :post="item" :key="item._id"></post>
-              </template>
-              <template v-else>
-                <div class="empty">
-                  什么，怎么会没有东西呢？
-                </div>
-              </template>
-            </main>
-
-            <!--加载更多-->
-            <div class="more" v-show="hasNextPage">
-                <div class="more-btn" @click="getList">更多</div>
-            </div>
+  <div class="home">
+    <banner isHome="true"></banner>
+    <div class="site-content animate">
+      <!-- 通知栏 -->
+      <div class="notify">
+        <div class="search-result" v-if="hideSlogan">
+          <span v-if="searchWords">搜索结果："{{ searchWords }}" 相关文章</span>
+          <span v-else-if="category">分类 "{{ category }}" 相关文章</span>
         </div>
+        <quote v-else>{{ notice }}</quote>
+      </div>
+
+      <!--焦点图-->
+      <div class="top-feature" v-if="!hideSlogan">
+        <section-title>
+          <div style="display: flex; align-items: flex-end">
+            焦点图<small-ico></small-ico>
+          </div>
+        </section-title>
+        <div class="feature-content">
+          <div class="feature-item">
+            <feature />
+          </div>
+        </div>
+      </div>
+
+      <!--文章列表-->
+      <main class="site-main" :class="{ search: hideSlogan }">
+        <section-title v-if="!hideSlogan">文章</section-title>
+        <template v-if="postList.length > 0">
+          <post v-for="item in postList" :post="item" :key="item._id"></post>
+        </template>
+        <template v-else>
+          <div class="empty">什么，怎么会没有东西呢？</div>
+        </template>
+      </main>
+
+      <!--加载更多-->
+      <div class="more" v-show="hasNextPage">
+        <div class="more-btn" @click="getList">更多</div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import {ref,computed,watch} from 'vue'
-import {useStore} from "@/store"
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from '@/store'
 import Banner from '@/components/banner.vue'
 import feature from '@/components/feature.vue'
 import sectionTitle from '@/components/section-title.vue'
 import Post from '@/components/post.vue'
 import SmallIco from '@/components/small-ico.vue'
 import Quote from '@/components/quote.vue'
-import {fetchList} from '@/api'
-import {articleData} from '@/api/types'
+import { fetchList } from '@/api'
+import type { articleData } from '@/api/types'
 
-const props = defineProps({
-  cate: {type: String},
-  words: {type: String}
+defineProps({
+  cate: { type: String },
+  words: { type: String },
 })
 
-const features=ref([])
-const postList=ref<articleData[]>([])
-let currPage=ref(1)
-let hasNextPage=ref(false)
+const postList = ref<articleData[]>([])
+const currPage = ref(1)
+const hasNextPage = ref(false)
 
-const route=useRoute()
-const store=useStore()
+const route = useRoute()
+const store = useStore()
 
-const searchWords=computed(() => {
-    return route.params.words
+const searchWords = computed(() => {
+  return route.params.words
 })
 
-const category=computed(() => {
-    return route.params.cate
+const category = computed(() => {
+  return route.params.cate
 })
 
-watch(()=>route.params.words,()=>{
-  searchData()
-})
+watch(
+  () => route.params.words,
+  () => {
+    searchData()
+  },
+)
 
-
-const hideSlogan=computed(() => {
-    return category.value || searchWords.value
+const hideSlogan = computed(() => {
+  return category.value || searchWords.value
 })
-const notice=computed(() => {
+const notice = computed(() => {
   return store.getters.notice
 })
 
-function searchData(){
-  currPage.value=1
-  postList.value=[]
+function searchData() {
+  currPage.value = 1
+  postList.value = []
   getList()
 }
 
-//文章列表
+// 文章列表
 function getList() {
-    fetchList({page:currPage.value,title:searchWords.value}).then(res => {
-      let result=res.result
+  fetchList({ page: currPage.value, title: searchWords.value })
+    .then((res) => {
+      const result = res.result
       postList.value = postList.value.concat(result.data || [])
       currPage.value = result.page
-      hasNextPage.value = postList.value.length<result.count
+      hasNextPage.value = postList.value.length < result.count
       currPage.value++
-    }).catch(err => {
-        console.log(err)
+    })
+    .catch((err) => {
+      console.log(err)
     })
 }
 
 getList()
-
 </script>
 
 <style scoped lang="less">
-
 .site-content {
   .notify {
     margin: 60px 0;
@@ -124,7 +125,6 @@ getList()
       padding: 20px;
     }
   }
-
 
   .search-result {
     padding: 15px 20px;
@@ -176,8 +176,8 @@ getList()
     height: 40px;
     line-height: 40px;
     text-align: center;
-    color: #ADADAD;
-    border: 1px solid #ADADAD;
+    color: #adadad;
+    border: 1px solid #adadad;
     border-radius: 20px;
     margin: 0 auto;
     cursor: pointer;
